@@ -43,9 +43,11 @@ export class EmployeeComponent implements OnInit {
       });
   }
   onSaveEmp() {
+    debugger;
     this.employeeService
       .createNewEmployee(this.employeeObj)
       .subscribe((res: APIresponse) => {
+        debugger;
         if (res.result) {
           alert('Employee Creation Success');
         } else {
