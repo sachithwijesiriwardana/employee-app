@@ -1,1 +1,117 @@
-<p>employee works!</p>
+<div class="my-4">
+  <div class="row">
+    <div class="col-7">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <div class="row">
+            <div class="col-6 text-white">
+              <strong>Employee Portal</strong>
+            </div>
+            <div class="col-6 text-end">
+              <button class="btn btn-warning">Add New</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Contact No</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Role</th>
+                <th>Gender</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data rows go here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <div class="row">
+            <div class="col-6 text-white">
+              <strong>New Employee</strong>
+            </div>
+            <div class="col-6 text-end">
+              <button class="btn btn-primary">Close</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form class="mb-4">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="employeeName" class="form-label">Employee Name</label>
+                <input type="text" class="form-control" [(ngModel)]="employeeObj.employeeName" name="employeeName"
+                  id="employeeName" placeholder="Enter employee name" />
+              </div>
+              <div class="col-md-6">
+                <label for="contactNo" class="form-label">Contact No</label>
+                <input type="text" class="form-control" [(ngModel)]="employeeObj.contactNo" name="contactNo"
+                  id="contactNo" placeholder="Enter contact number" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="emailId" class="form-label">Email</label>
+                <input type="email" class="form-control" [(ngModel)]="employeeObj.emailId" name="emailId" id="emailId"
+                  placeholder="Enter email" />
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="deptId" class="form-label">Parent Department</label>
+                  <select id="deptId" class="form-control" [(ngModel)]="deptId" name="deptId" class="form-select"
+                    (change)="OnDeptChange()">
+                    <option selected>Select department</option>
+
+                    @for (item of parentDeptList; track $index) {
+                    <option [value]="item.departmentId">
+                      {{ item.departmentName }}
+                    </option>
+                    }
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="deptId" class="form-label">Child Department</label>
+                  <select id="deptId" class="form-control" class="form-select" [(ngModel)]="employeeObj.deptId"
+                    name="deptId">
+                    <option selected>Select department</option>
+                    @for (item of childDeptList; track $index) {
+                    <option [value]="item.childDeptId">
+                      {{ item.departmentName }}
+                    </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" [(ngModel)]="employeeObj.password" name="password"
+                  id="password" placeholder="Enter password" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div>Select Gender</div>
+                <input type="radio" value="Male" name="male" [(ngModel)]="employeeObj.gender" />Male
+                <input type="radio" value="Female" name="male" [(ngModel)]="employeeObj.gender" />Female
+              </div>
+            </div>
+            <button type="submit" (click)="onSaveEmp()" class="btn btn-warning mt-3">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
