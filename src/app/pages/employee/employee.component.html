@@ -1,6 +1,6 @@
 <div class="my-4">
   <div class="row">
-    <div class="col-7">
+    <div [class]="isSidePanelOpen() ? 'col-7': 'col-12'">
       <div class="card">
         <div class="card-header bg-secondary">
           <div class="row">
@@ -8,7 +8,7 @@
               <strong>Employee Portal</strong>
             </div>
             <div class="col-6 text-end">
-              <button class="btn btn-warning">Add New</button>
+              <button class="btn btn-warning" (click)="addNew()">Add New</button>
             </div>
           </div>
         </div>
@@ -21,18 +21,30 @@
                 <th>Contact No</th>
                 <th>Email</th>
                 <th>Department</th>
-                <th>Role</th>
-                <th>Gender</th>
                 <th>Actions</th>
+                <th>Edit</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Data rows go here -->
+              @for (item of employeeList; track $index) {
+              <tr>
+                <td>{{$index + 1}}</td>
+                <td>{{item.employeeName}}</td>
+                <td>{{item.contactNo}}</td>
+                <td>{{item.emailId}}</td>
+                <td>{{item.deptId}}</td>
+                <td> <button class="btn btn-danger" (click)="onDelete(item.employeeId)">Delete</button></td>
+                <td> <button class="btn btn-dark" (click)="OnEdit(item)">Edit</button></td>
+              </tr>
+
+              }
             </tbody>
           </table>
         </div>
       </div>
     </div>
+    @if (isSidePanelOpen()) {
+
     <div class="col-5">
       <div class="card">
         <div class="card-header bg-secondary">
@@ -41,7 +53,7 @@
               <strong>New Employee</strong>
             </div>
             <div class="col-6 text-end">
-              <button class="btn btn-primary">Close</button>
+              <button class="btn btn-primary" (click)="close()">Close</button>
             </div>
           </div>
         </div>
@@ -108,10 +120,19 @@
                 <input type="radio" value="Female" name="male" [(ngModel)]="employeeObj.gender" />Female
               </div>
             </div>
+            @if (employeeObj.employeeId == 0) {
             <button type="submit" (click)="onSaveEmp()" class="btn btn-warning mt-3">Submit</button>
+            }@else{
+            <button type="submit" (click)="onUpdateEmp()" class="btn btn-primary mt-3">Update</button>
+            }
           </form>
         </div>
       </div>
     </div>
+    }
+
+
   </div>
+
+
 </div>
