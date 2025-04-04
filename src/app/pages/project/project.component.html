@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form class="mb-4" [formGroup]="projectForm">
+        <form class="mb-4" [formGroup]="projectForm" (ngSubmit)="onSaveProject()">
           <div class="row">
             <div class="col-md-6">
               <label for="projectName" class="form-label">Project Name</label>
