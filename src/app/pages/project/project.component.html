@@ -23,7 +23,17 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Data rows go here -->
+              <tr *ngFor=" let project of projectList; let sr= index">
+                <th>{{sr+1}}</th>
+                <th>{{project.projectName}}</th>
+                <th>{{project.clientName}}</th>
+                <th>{{project.startDate| date:'dd/MM/yyyy'}}</th>
+                <th>{{project.employeeName}}</th>
+                <td>
+                  <button class="btn btn-primary" (click)="onEditProject(project)">Edit</button>
+
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -62,7 +72,7 @@
             </div>
             <div class="col-md-6">
               <label for="leadByEmpId" class="form-label">Lead By Employee ID</label>
-              <select class="form-select" formControlName="LeadByEmpid">
+              <select class="form-select" formControlName="leadByEmpId" id="leadByEmpId">
                 <option value="">Select Employee</option>
                 <option *ngFor="let  emp of employeeData$ |async" [value]="emp.employeeId"> {{emp.employeeName}}
                 </option>

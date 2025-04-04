@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APIresponse, Employee, Project, } from '../model/Employee';
+import { APIresponse, Employee, Project } from '../model/Employee';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  apiUrl: string = 'https://projectapi.gerasim.in/api/EmployeeManagement/';
+  apiUrl: string = '/api/EmployeeManagement/';
+
   constructor(private http: HttpClient) { }
 
   createNewEmployee(obj: Employee) {
@@ -25,6 +26,10 @@ export class EmployeeService {
     return this.http.post<Project>(`${this.apiUrl} + 'CreateProject'`, obj);
   }
 
+  updateProject(obj: Project) {
+    return this.http.post<Project>(this.apiUrl + 'UpdateProjectEmployee' + obj.projectId, obj);
+  }
+
   getProjects() {
     return this.http.get<Project[]>(this.apiUrl + 'GetAllProjects');
   }
@@ -34,4 +39,5 @@ export class EmployeeService {
       obj
     );
   }
+
 }
