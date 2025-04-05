@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
-import { Component, inject, OnInit, Pipe } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, Pipe, ViewChild, viewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MasterServicesService } from '../../service/master-services.service';
 import { Employee, Project } from '../../model/Employee';
@@ -14,6 +14,10 @@ import { EmployeeService } from '../../service/employee.service';
   styleUrl: './project.component.css',
 })
 export class ProjectComponent implements OnInit {
+
+  @ViewChild("myPopModal") employeeModal: ElementRef | undefined
+
+
   currentView: string = 'List';
   projectForm: FormGroup = new FormGroup({});
   employeeService = inject(EmployeeService);
@@ -78,4 +82,8 @@ export class ProjectComponent implements OnInit {
     });
   }
 
+  onAddEmployee(id: number) {
+    this.initializeForm();
+
+  }
 }

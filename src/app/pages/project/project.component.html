@@ -7,7 +7,9 @@
             <strong>Project List</strong>
           </div>
           <div class="col-6 text-end">
-            <button class="btn btn-primary" (click)="currentView ='Create'">Create New Project</button>
+            <button class="btn btn-primary" (click)="currentView = 'Create'">
+              Create New Project
+            </button>
           </div>
         </div>
         <div class="card-body">
@@ -23,15 +25,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor=" let project of projectList; let sr= index">
-                <th>{{sr+1}}</th>
-                <th>{{project.projectName}}</th>
-                <th>{{project.clientName}}</th>
-                <th>{{project.startDate| date:'dd/MM/yyyy'}}</th>
-                <th>{{project.employeeName}}</th>
+              <tr *ngFor="let project of projectList; let sr = index">
+                <th>{{ sr + 1 }}</th>
+                <th>{{ project.projectName }}</th>
+                <th>{{ project.clientName }}</th>
+                <th>{{ project.startDate | date : "dd/MM/yyyy" }}</th>
+                <th>{{ project.employeeName }}</th>
                 <td>
-                  <button class="btn btn-primary" (click)="onEditProject(project)">Edit</button>
+                  <button class="btn btn-primary" (click)="onEditProject(project)">
+                    Edit
+                  </button>
 
+                  <button class="btn btn-danger" (click)="onAddEmployee(project.projectId)">
+                    Employees
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -48,7 +55,9 @@
             <strong>New Project </strong>
           </div>
           <div class="col-6 text-end">
-            <button class="btn btn-primary" (click)="currentView ='List'">Close</button>
+            <button class="btn btn-primary" (click)="currentView = 'List'">
+              Close
+            </button>
           </div>
         </div>
       </div>
@@ -58,23 +67,24 @@
             <div class="col-md-6">
               <label for="projectName" class="form-label">Project Name</label>
               <input type="text" formControlName="projectName" class="form-control" id="projectName"
-                placeholder="Enter project name">
+                placeholder="Enter project name" />
             </div>
             <div class="col-md-6">
               <label for="clientName" class="form-label">Client Name</label>
-              <input type="text" class="form-control" id="clientName" placeholder="Enter client name">
+              <input type="text" class="form-control" id="clientName" placeholder="Enter client name" />
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
               <label for="startDate" class="form-label">Start Date</label>
-              <input type="date" formControlName="startDate" class="form-control" id="startDate">
+              <input type="date" formControlName="startDate" class="form-control" id="startDate" />
             </div>
             <div class="col-md-6">
               <label for="leadByEmpId" class="form-label">Lead By Employee ID</label>
               <select class="form-select" formControlName="leadByEmpId" id="leadByEmpId">
                 <option value="">Select Employee</option>
-                <option *ngFor="let  emp of employeeData$ |async" [value]="emp.employeeId"> {{emp.employeeName}}
+                <option *ngFor="let emp of employeeData$ | async" [value]="emp.employeeId">
+                  {{ emp.employeeName }}
                 </option>
               </select>
             </div>
@@ -83,20 +93,46 @@
             <div class="col-md-6">
               <label for="contactPerson" class="form-label">Contact Person</label>
               <input type="text" formControlName="contactPerson" class="form-control" id="contactPerson"
-                placeholder="Enter contact person name">
+                placeholder="Enter contact person name" />
             </div>
             <div class="col-md-6">
               <label for="contactNoProject" class="form-label">Contact No</label>
               <input type="text" formControlName="contactNo" class="form-control" id="contactNoProject"
-                placeholder="Enter contact number">
+                placeholder="Enter contact number" />
             </div>
             <div class="col-md-6">
               <label for="contactPerson" class="form-label">Email </label>
-              <input type="text" formControlName="emailId" class="form-control" id="emailId" placeholder="emailId">
+              <input type="text" formControlName="emailId" class="form-control" id="emailId" placeholder="emailId" />
             </div>
           </div>
-          <button type="submit" class="btn btn-primary mt-3">Sdfubmit</button>
+          <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
       </div>
     </div>
   </div>
+
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+    Open Modal
+  </button>
+
+  <div id="myModal" class="modal fade" role="dialog" #myPopModl>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+          <h4 class="modal-title">Project Employees</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
