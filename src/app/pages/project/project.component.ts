@@ -45,6 +45,7 @@ export class ProjectComponent implements OnInit {
       contactNo: new FormControl(projectData ? projectData.contactNo : ''),
       emailId: new FormControl(projectData ? projectData.emailId : ''),
     });
+    this.currentView = "Create";
   }
 
   onSaveProject() {
@@ -53,6 +54,7 @@ export class ProjectComponent implements OnInit {
       this.employeeService.createNewProject(formValue).subscribe(
         (res: Project) => {
           alert('project Created Sucessfully');
+          this.getAllProjects();
         },
         (error) => { }
       );
@@ -61,6 +63,7 @@ export class ProjectComponent implements OnInit {
       this.employeeService.updateProject(formValue).subscribe(
         (res: Project) => {
           alert('project Updated Sucessfully');
+          this.getAllProjects();
         },
         (error) => { }
       );

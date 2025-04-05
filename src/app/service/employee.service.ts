@@ -27,7 +27,7 @@ export class EmployeeService {
   }
 
   updateProject(obj: Project) {
-    return this.http.post<Project>(this.apiUrl + 'UpdateProjectEmployee' + obj.projectId, obj);
+    return this.http.post<Project>(this.apiUrl + 'UpdateProjectEmployee/' + obj.projectId, obj);
   }
 
   getProjects() {
