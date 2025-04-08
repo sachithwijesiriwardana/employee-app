@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APIresponse, Employee, Project } from '../model/Employee';
+import { APIresponse, Employee, Project, ProjectEmployee } from '../model/Employee';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +39,14 @@ export class EmployeeService {
       obj
     );
   }
+  addNewProjectEmployee(obj: ProjectEmployee) {
+    return this.http.post<ProjectEmployee>(`${this.apiUrl} + 'CreateEmployee'`, obj);
+  }
+
+  getProjectEmployees(id: number) {
+    return this.http.get<Project>(`${this.apiUrl} + 'GetEmployee/'` + id
+    );
+  }
+
 
 }

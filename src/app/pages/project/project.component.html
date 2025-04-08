@@ -37,7 +37,7 @@
                   </button>
 
                   <button class="btn btn-danger mx-2" (click)="onAddEmployee(project.projectId)">
-                    Employeesdfsgfdg
+                    Employees
                   </button>
                 </td>
               </tr>
@@ -111,10 +111,8 @@
     </div>
   </div>
 
-
-
   <div class="modal" role="dialog" #myPopModl>
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" (click)="onCloseModal()">
@@ -123,10 +121,45 @@
           <h4 class="modal-title">Project Employees</h4>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
+          <div class="row">
+            <div class="col-3">
+              <select name="" id="" class="form-select" [(ngModel)]="projectEmployee.empId">
+                <option value="0">Select Employee</option>
+                <option *ngFor="let emp of employeeData$ | async" [value]="emp.employeeId">{{emp.employeeName}}</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <input type="text" placeholder="role" class="form-control" [(ngModel)]="projectEmployee.role" />
+            </div>
+            <div class="col-3">
+              <input type="date" class="form-control" [(ngModel)]="projectEmployee.assignedDate" />
+            </div>
+            <div class="col-3">
+              <input type="button" class="btn btn-sm btn-primary" (click)="onAddEmp()" value="Add" />
+            </div>
+          </div>
+        </div>
+        <div class="row pt-2">
+          <div class="col-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Project ID</th>
+                  <th>Project Name</th>
+                  <th>Client Name</th>
+                  <th>Start Date</th>
+                  <th>Lead By Employee</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCloseModal()">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onCloseModal()">
             Close
           </button>
         </div>

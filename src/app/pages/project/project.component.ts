@@ -8,16 +8,15 @@ import {
   ViewChild,
   viewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MasterServicesService } from '../../service/master-services.service';
-import { Employee, Project } from '../../model/Employee';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Employee, Project, ProjectEmployee } from '../../model/Employee';
 import { Observable } from 'rxjs';
 import { EmployeeService } from '../../service/employee.service';
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, AsyncPipe, NgFor, DatePipe],
+  imports: [NgIf, ReactiveFormsModule, AsyncPipe, NgFor, DatePipe, FormsModule],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
 })
@@ -27,6 +26,7 @@ export class ProjectComponent implements OnInit {
   currentView: string = 'List';
   projectForm: FormGroup = new FormGroup({});
   employeeService = inject(EmployeeService);
+  projectEmployee: ProjectEmployee = new ProjectEmployee();
 
   projectList: Project[] = [];
 
@@ -42,12 +42,9 @@ export class ProjectComponent implements OnInit {
   }
 
   onAddEmployee(id: number) {
+    this.projectEmployee.empId = id;
     if (this.employeeModal) {
-      console.log('huiijhkjjhkh');
-
       this.employeeModal.nativeElement.style.display = 'block';
-      console.log('dtfgfdgfdgdfg');
-
     }
   }
   onCloseModal() {
@@ -55,7 +52,6 @@ export class ProjectComponent implements OnInit {
       this.employeeModal.nativeElement.style.display = 'none';
     }
   }
-
   onEditProject(projectData: Project) {
     this.initializeForm(projectData);
   }
@@ -75,7 +71,6 @@ export class ProjectComponent implements OnInit {
     });
     this.currentView = 'Create';
   }
-
   onSaveProject() {
     const formValue = this.projectForm.value;
     if (formValue.projectId == 0) {
@@ -96,10 +91,26 @@ export class ProjectComponent implements OnInit {
       );
     }
   }
+
+  onAddEmp() {
+    this.employeeService.addNewProjectEmployee(this.projectEmployee).subscribe(
+      (res: ProjectEmployee) => {
+        alert('Employee Added  to Project Successfully');
+        this.getAllProjects();
+      },
+      (error) => {
+        console.error('Error adding employee:', error);
+        alert('Failed to add employee');
+      }
+    );
+  }
+
   getAllProjects() {
     this.employeeService.getProjects().subscribe((res: Project[]) => {
       this.projectList = res;
       console.log(this.projectList);
     });
   }
+
+
 }
