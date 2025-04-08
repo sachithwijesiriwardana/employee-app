@@ -1,5 +1,13 @@
 import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
-import { Component, ElementRef, inject, OnInit, Pipe, ViewChild, viewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  Pipe,
+  ViewChild,
+  viewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MasterServicesService } from '../../service/master-services.service';
 import { Employee, Project } from '../../model/Employee';
@@ -14,9 +22,7 @@ import { EmployeeService } from '../../service/employee.service';
   styleUrl: './project.component.css',
 })
 export class ProjectComponent implements OnInit {
-
-  @ViewChild("myPopModal") employeeModal: ElementRef | undefined
-
+  @ViewChild('myPopModl') employeeModal: ElementRef | undefined;
 
   currentView: string = 'List';
   projectForm: FormGroup = new FormGroup({});
@@ -34,6 +40,22 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProjects();
   }
+
+  onAddEmployee(id: number) {
+    if (this.employeeModal) {
+      console.log('huiijhkjjhkh');
+
+      this.employeeModal.nativeElement.style.display = 'block';
+      console.log('dtfgfdgfdgdfg');
+
+    }
+  }
+  onCloseModal() {
+    if (this.employeeModal) {
+      this.employeeModal.nativeElement.style.display = 'none';
+    }
+  }
+
   onEditProject(projectData: Project) {
     this.initializeForm(projectData);
   }
@@ -45,11 +67,13 @@ export class ProjectComponent implements OnInit {
       clientName: new FormControl(projectData ? projectData.clientName : ''),
       startDate: new FormControl(projectData ? projectData.startDate : ''),
       leadByEmpId: new FormControl(projectData ? projectData.leadByEmpId : ''),
-      contactPerson: new FormControl(projectData ? projectData.contactPerson : ''),
+      contactPerson: new FormControl(
+        projectData ? projectData.contactPerson : ''
+      ),
       contactNo: new FormControl(projectData ? projectData.contactNo : ''),
       emailId: new FormControl(projectData ? projectData.emailId : ''),
     });
-    this.currentView = "Create";
+    this.currentView = 'Create';
   }
 
   onSaveProject() {
@@ -62,7 +86,6 @@ export class ProjectComponent implements OnInit {
         },
         (error) => { }
       );
-
     } else {
       this.employeeService.updateProject(formValue).subscribe(
         (res: Project) => {
@@ -71,19 +94,12 @@ export class ProjectComponent implements OnInit {
         },
         (error) => { }
       );
-
     }
-
   }
   getAllProjects() {
     this.employeeService.getProjects().subscribe((res: Project[]) => {
       this.projectList = res;
       console.log(this.projectList);
     });
-  }
-
-  onAddEmployee(id: number) {
-    this.initializeForm();
-
   }
 }
